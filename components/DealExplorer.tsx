@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   LocateFixed,
   MapPin,
-  MessageCircle,
   Search,
   ShieldCheck,
   Tag,
@@ -32,7 +31,7 @@ function productLabel(productType: string) {
 
 function locationTitle(deal: Hotdeal) {
   const station = deal.nearestStation || deal.region;
-  const distance = deal.walkingDistanceText === "검수 필요" ? "도보 3분" : deal.walkingDistanceText;
+  const distance = deal.walkingDistanceText === "검수 필요" ? "인근" : deal.walkingDistanceText;
   return `${station} ${distance}`;
 }
 
@@ -82,6 +81,7 @@ export function DealExplorer({ deals }: DealExplorerProps) {
         <div className="heroShade" />
         <div className="heroInner">
           <div className="heroCopy">
+            <span className="campaignLabel">슈가맨워크 공식 핫딜</span>
             <h1>슈가맨워크 입주 핫딜</h1>
             <p>입주 가능한 지점의 개인룸, 자유석, 비상주 특가를 한 화면에서 확인하고 본사 상담으로 바로 연결하세요.</p>
             <div className="heroButtons">
@@ -91,6 +91,11 @@ export function DealExplorer({ deals }: DealExplorerProps) {
               <a className="navyPill" href="#inquiry">
                 본사 상담
               </a>
+            </div>
+            <div className="heroProofRow" aria-label="핫딜 안내">
+              <span>한정 수량</span>
+              <span>즉시 입주 상품 우선</span>
+              <span>본사 상담 연결</span>
             </div>
           </div>
 
@@ -122,10 +127,15 @@ export function DealExplorer({ deals }: DealExplorerProps) {
                   {filter}
                 </button>
               ))}
-              <span>예: 신중동역 도보 3분 · 내 위치에서 2.1km</span>
+              <span>예: 신중동역, 부평역, 미아사거리역</span>
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="hotdealNotice" aria-label="핫딜 이용 안내">
+        <strong>핫딜은 잔여 수량이 있는 지점 상품만 선별해 노출합니다.</strong>
+        <span>상담 접수 후 실제 입주 가능 여부와 계약 조건을 확인해드립니다.</span>
       </section>
 
       <section className="dealShell" id="deals">
@@ -154,7 +164,7 @@ export function DealExplorer({ deals }: DealExplorerProps) {
             <strong>{nearestDeal ? locationTitle(nearestDeal) : "가까운 지점 검색"}</strong>
             <span>
               {nearestDeal
-                ? `내 위치 기준 2.1km · ${productLabel(nearestDeal.productType)} ${nearestDeal.quantityAvailable}개`
+                ? `${productLabel(nearestDeal.productType)} 잔여 ${nearestDeal.quantityAvailable}개`
                 : "지역 또는 지하철역을 검색해보세요."}
             </span>
           </div>
@@ -226,7 +236,7 @@ export function DealExplorer({ deals }: DealExplorerProps) {
         <div className="inquiryIntro">
           <span>Consultation</span>
           <h2>본사 상담 문의</h2>
-          <p>선택한 핫딜 상품을 기준으로 상담원이 연락드립니다. 실제 계약 전 가격, 수량, 입주 가능 여부를 다시 확인합니다.</p>
+          <p>선택한 핫딜 상품을 기준으로 상담원이 연락드립니다. 가격, 수량, 입주 가능 여부를 확인한 뒤 계약 절차를 안내합니다.</p>
           {selectedDeal && (
             <div className="selectedDealBox">
               <strong>{selectedDeal.branchName}</strong>
@@ -271,22 +281,9 @@ export function DealExplorer({ deals }: DealExplorerProps) {
             <button className="bluePill" type="submit">
               문의 접수하기
             </button>
-            <a className="yellowPill" href="https://pf.kakao.com/" rel="noreferrer" target="_blank">
-              <MessageCircle size={17} />
-              카카오톡 상담
-            </a>
           </div>
         </form>
       </section>
-
-      <aside className="floatingActions" aria-label="빠른 상담">
-        <a className="proposalBubble" href="#inquiry">
-          입점제안
-        </a>
-        <a className="inquiryBubble" href="#inquiry">
-          문의하기
-        </a>
-      </aside>
 
       <section className="trustStrip" aria-label="서비스 안내">
         <div>
@@ -295,19 +292,19 @@ export function DealExplorer({ deals }: DealExplorerProps) {
         </div>
         <div>
           <CalendarDays size={18} />
-          즉시 입주 우선 노출
+          입주 가능일 확인
         </div>
         <div>
           <CheckCircle2 size={18} />
-          조건 확인 후 안내
+          계약 조건 확인
         </div>
         <div>
           <Users size={18} />
-          지점별 잔여 수량 관리
+          수량 소진 시 마감
         </div>
         <div>
           <Tag size={18} />
-          특가 조건 비교
+          특가 상품 비교
         </div>
       </section>
     </main>
