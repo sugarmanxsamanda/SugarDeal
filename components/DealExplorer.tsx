@@ -31,7 +31,7 @@ function productLabel(productType: string) {
 
 function locationTitle(deal: Hotdeal) {
   const station = deal.nearestStation || deal.region;
-  const distance = deal.walkingDistanceText === "검수 필요" ? "인근" : deal.walkingDistanceText;
+  const distance = deal.walkingDistanceText || "인근";
   return `${station} ${distance}`;
 }
 
