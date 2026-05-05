@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "슈가맨워크 핫딜",
   description: "슈가맨워크 공유오피스 공식 핫딜 프로모션",
   icons: {
-    icon: "/favicon.svg"
+    icon: "favicon.svg"
   }
 };
 
