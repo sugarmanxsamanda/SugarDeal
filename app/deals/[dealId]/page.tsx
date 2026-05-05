@@ -26,7 +26,7 @@ function productLabel(productType: string) {
 }
 
 function locationTitle(nearestStation: string, walkingDistanceText: string) {
-  const distance = walkingDistanceText === "검수 필요" ? "인근" : walkingDistanceText;
+  const distance = walkingDistanceText || "인근";
   return `${nearestStation} ${distance}`;
 }
 
