@@ -6,13 +6,11 @@ import {
   CalendarDays,
   CheckCircle2,
   MapPin,
-  MessageCircle,
   ShieldCheck,
   Tag,
   Users
 } from "lucide-react";
 import { OfficeVisual } from "@/components/OfficeVisual";
-import { SiteChrome } from "@/components/SiteChrome";
 import { getDealById, getDeals } from "@/lib/deals";
 import { formatPrice } from "@/lib/deal-utils";
 
@@ -28,7 +26,7 @@ function productLabel(productType: string) {
 }
 
 function locationTitle(nearestStation: string, walkingDistanceText: string) {
-  const distance = walkingDistanceText === "검수 필요" ? "도보 3분" : walkingDistanceText;
+  const distance = walkingDistanceText === "검수 필요" ? "인근" : walkingDistanceText;
   return `${nearestStation} ${distance}`;
 }
 
@@ -57,7 +55,6 @@ export default async function DealPage({ params }: DealPageProps) {
 
   return (
     <main className="hotdealPage detailSurface">
-      <SiteChrome />
       <div className="detailWrap">
         <Link className="backLink" href="/">
           <ArrowLeft size={18} />
@@ -79,13 +76,13 @@ export default async function DealPage({ params }: DealPageProps) {
               <MapPin size={18} />
               <div>
                 <strong>{locationTitle(deal.nearestStation, deal.walkingDistanceText)}</strong>
-                <span>내 위치 2.1km · 교통 정보 상담 확인</span>
+                <span>지점 위치와 입주 가능 여부 상담 확인</span>
               </div>
             </div>
             <div className="detailPriceCard">
               <span>정상가 월 {formatPrice(deal.normalPriceMonthly)}원</span>
               <strong>핫딜가 월 {formatPrice(deal.dealPriceMonthly)}원</strong>
-              <em>본사 상담으로 계약 조건을 확인합니다.</em>
+              <em>계약 전 특가 적용 조건을 확인합니다.</em>
             </div>
           </div>
         </section>
@@ -139,10 +136,6 @@ export default async function DealPage({ params }: DealPageProps) {
               <button className="bluePill" type="button">
                 문의 접수하기
               </button>
-              <a className="yellowPill" href="https://pf.kakao.com/" rel="noreferrer" target="_blank">
-                <MessageCircle size={17} />
-                카카오톡 상담
-              </a>
             </div>
           </div>
         </section>
@@ -152,7 +145,7 @@ export default async function DealPage({ params }: DealPageProps) {
           <ul>
             <li>
               <CheckCircle2 size={18} />
-              가격, 잔여 수량, 계약 조건은 실제 노출 전 최종 검수합니다.
+              가격, 잔여 수량, 계약 조건은 상담 시점 기준으로 안내됩니다.
             </li>
             <li>
               <ShieldCheck size={18} />
@@ -160,7 +153,7 @@ export default async function DealPage({ params }: DealPageProps) {
             </li>
             <li>
               <CalendarDays size={18} />
-              결제 연동 전에는 상담 신청을 기준으로 예약 절차를 진행합니다.
+              수량이 한정되어 있어 상담 접수 순서에 따라 마감될 수 있습니다.
             </li>
           </ul>
         </section>
